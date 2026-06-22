@@ -1,0 +1,20 @@
+{
+    "items": [
+        {
+            "itemId": 12345678,
+            "name": "Sony WH-1000XM5 Wireless Headphones",
+            "salePrice": 279.99,
+            "msrp": 349.99,
+            "largeImage": "https://i5.walmartimages.com/asr/headphones.jpg",
+            "affiliateAddToCartUrl": "https://goto.walmart.com/c/123456/123/headphones",
+            "productUrl": "https://www.walmart.com/ip/Sony-WH-1000XM5/12345678"
+        },
+        {
+            "itemId": 87654321,
+            "name": "Bose QuietComfort 45 Headphones",
+            "salePrice": 229.99,
+            "largeImage": "https://i5.walmartimages.com/asr/bose.jpg",
+            "affiliateAddToCartUrl": "https://goto.walmart.com/c/123456/456/bose"
+        }
+    ]
+}

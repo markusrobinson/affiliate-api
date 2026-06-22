@@ -1,0 +1,57 @@
+{
+    "SearchResult": {
+        "TotalResultCount": 2,
+        "Items": [
+            {
+                "ASIN": "B09XS7JWHH",
+                "ItemInfo": {
+                    "Title": {
+                        "DisplayValue": "Sony WH-1000XM5 Wireless Noise Canceling Headphones"
+                    }
+                },
+                "Images": {
+                    "Primary": {
+                        "Large": {
+                            "URL": "https://m.media-amazon.com/images/I/sony-xm5.jpg"
+                        }
+                    }
+                },
+                "Offers": {
+                    "Listings": [
+                        {
+                            "Price": {
+                                "Amount": 298.0,
+                                "Currency": "USD"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "ASIN": "B07YXL7KV9",
+                "ItemInfo": {
+                    "Title": {
+                        "DisplayValue": "Bose QuietComfort 45 Bluetooth Headphones"
+                    }
+                },
+                "Images": {
+                    "Primary": {
+                        "Large": {
+                            "URL": "https://m.media-amazon.com/images/I/bose-qc45.jpg"
+                        }
+                    }
+                },
+                "Offers": {
+                    "Listings": [
+                        {
+                            "Price": {
+                                "Amount": 249.0,
+                                "Currency": "USD"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
