@@ -4,6 +4,10 @@
             <flux:navlist.item :href="route('profile.edit')" wire:navigate>{{ __('Profile') }}</flux:navlist.item>
             <flux:navlist.item :href="route('teams.index')" :current="request()->routeIs('teams.*')" wire:navigate>{{ __('Teams') }}</flux:navlist.item>
             <flux:navlist.item :href="route('appearance.edit')" wire:navigate>{{ __('Appearance') }}</flux:navlist.item>
+            <flux:navlist.group heading="{{ __('Affiliate') }}" class="mt-2">
+                <flux:navlist.item :href="route('api-tokens.index')" wire:navigate>{{ __('API Tokens') }}</flux:navlist.item>
+                <flux:navlist.item :href="route('provider-credentials.index')" wire:navigate>{{ __('Providers') }}</flux:navlist.item>
+            </flux:navlist.group>
         </flux:navlist>
     </div>
 

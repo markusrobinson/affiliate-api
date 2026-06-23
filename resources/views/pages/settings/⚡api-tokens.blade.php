@@ -48,13 +48,11 @@ new #[Title('API Tokens')] class extends Component {
         @if ($newTokenValue)
             <flux:callout variant="success" icon="check-circle" class="my-6">
                 <flux:callout.heading>{{ __('Token created') }}</flux:callout.heading>
-                <flux:callout.text>
-                    {{ __('Copy this token now. It will not be shown again.') }}
-                </flux:callout.text>
-                <flux:callout.actions>
-                    <flux:input value="{{ $newTokenValue }}" readonly />
-                    <flux:button wire:click="dismissToken" variant="ghost">{{ __('Dismiss') }}</flux:button>
-                </flux:callout.actions>
+                <flux:callout.text>{{ __('Copy this token now. It will not be shown again.') }}</flux:callout.text>
+                <div class="mt-3 flex items-center gap-3">
+                    <flux:input value="{{ $newTokenValue }}" readonly class="font-mono text-sm" />
+                    <flux:button wire:click="dismissToken" variant="ghost" size="sm">{{ __('Dismiss') }}</flux:button>
+                </div>
             </flux:callout>
         @endif
 
@@ -69,15 +67,13 @@ new #[Title('API Tokens')] class extends Component {
             <p class="text-sm text-zinc-500">{{ __('No API tokens yet.') }}</p>
         @else
             <flux:table>
-                <flux:table.head>
-                    <flux:table.row>
-                        <flux:table.cell>{{ __('Name') }}</flux:table.cell>
-                        <flux:table.cell>{{ __('Created') }}</flux:table.cell>
-                        <flux:table.cell>{{ __('Last used') }}</flux:table.cell>
-                        <flux:table.cell></flux:table.cell>
-                    </flux:table.row>
-                </flux:table.head>
-                <flux:table.body>
+                <flux:table.columns>
+                    <flux:table.column>{{ __('Name') }}</flux:table.column>
+                    <flux:table.column>{{ __('Created') }}</flux:table.column>
+                    <flux:table.column>{{ __('Last used') }}</flux:table.column>
+                    <flux:table.column></flux:table.column>
+                </flux:table.columns>
+                <flux:table.rows>
                     @foreach ($tokens as $token)
                         <flux:table.row>
                             <flux:table.cell>{{ $token->name }}</flux:table.cell>
@@ -90,7 +86,7 @@ new #[Title('API Tokens')] class extends Component {
                             </flux:table.cell>
                         </flux:table.row>
                     @endforeach
-                </flux:table.body>
+                </flux:table.rows>
             </flux:table>
         @endif
 
