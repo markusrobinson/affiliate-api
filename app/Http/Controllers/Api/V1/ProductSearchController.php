@@ -25,6 +25,7 @@ class ProductSearchController extends Controller
                 'total' => count($result->products),
                 'providers_queried' => $result->providersQueried,
                 'providers_failed' => $result->providersFailed,
+                'provider_errors' => $result->providerErrors,
                 'cached' => $result->wasCached,
             ],
         ]);

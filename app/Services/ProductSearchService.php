@@ -29,6 +29,7 @@ class ProductSearchService
                 providersQueried: $cached['providers_queried'],
                 providersFailed: $cached['providers_failed'],
                 wasCached: true,
+                providerErrors: $cached['provider_errors'] ?? [],
             );
         }
 
@@ -36,6 +37,7 @@ class ProductSearchService
 
         $providersQueried = [];
         $providersFailed = [];
+        $providerErrors = [];
         $allProducts = [];
 
         /** @var array<int, callable(): ProductResult[]> $tasks */
@@ -53,6 +55,7 @@ class ProductSearchService
                 } catch (ProviderException $e) {
                     Log::warning("Affiliate provider [{$e->provider->value}] failed: {$e->getMessage()}");
                     $providersFailed[] = $e->provider->value;
+                    $providerErrors[$e->provider->value] = $e->getMessage();
                 }
             };
         }
@@ -70,6 +73,7 @@ class ProductSearchService
             'products' => $allProducts,
             'providers_queried' => $providersQueried,
             'providers_failed' => $providersFailed,
+            'provider_errors' => $providerErrors,
         ];
 
         Cache::put($cacheKey, $payload, $ttl);
@@ -79,6 +83,7 @@ class ProductSearchService
             providersQueried: $providersQueried,
             providersFailed: $providersFailed,
             wasCached: false,
+            providerErrors: $providerErrors,
         );
     }
 }
