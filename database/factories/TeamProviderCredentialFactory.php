@@ -20,11 +20,7 @@ class TeamProviderCredentialFactory extends Factory
         return [
             'team_id' => Team::factory(),
             'provider' => AffiliateProvider::Walmart,
-            'credentials' => [
-                'account_sid' => fake()->uuid(),
-                'auth_token' => fake()->sha256(),
-                'publisher_id' => fake()->numerify('#########'),
-            ],
+            'credentials' => $this->walmartCredentials(),
             'is_active' => true,
         ];
     }
@@ -33,12 +29,21 @@ class TeamProviderCredentialFactory extends Factory
     {
         return $this->state([
             'provider' => AffiliateProvider::Walmart,
-            'credentials' => [
-                'account_sid' => fake()->uuid(),
-                'auth_token' => fake()->sha256(),
-                'publisher_id' => fake()->numerify('#########'),
-            ],
+            'credentials' => $this->walmartCredentials(),
         ]);
+    }
+
+    /** @return array<string, string> */
+    private function walmartCredentials(): array
+    {
+        $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA]);
+        openssl_pkey_export($key, $pem);
+
+        return [
+            'account_sid' => fake()->uuid(),
+            'auth_token' => base64_encode($pem),
+            'publisher_id' => fake()->numerify('#########'),
+        ];
     }
 
     public function amazon(): static
