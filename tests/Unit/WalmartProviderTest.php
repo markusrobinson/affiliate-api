@@ -17,9 +17,8 @@ it('maps walmart search response to ProductResult array', function (): void {
 
     $provider = new WalmartProvider;
     $results = $provider->search('headphones', [
-        'consumer_id' => 'test-consumer-id',
-        'private_key' => base64_encode('fake-key'),
-        'channel_type' => 'Default',
+        'account_sid' => 'test-account-sid',
+        'auth_token' => 'test-auth-token',
     ]);
 
     expect($results)->toHaveCount(2)
@@ -35,8 +34,7 @@ it('throws ProviderException on non-2xx response', function (): void {
     $provider = new WalmartProvider;
 
     expect(fn () => $provider->search('headphones', [
-        'consumer_id' => 'id',
-        'private_key' => base64_encode('key'),
-        'channel_type' => 'Default',
+        'account_sid' => 'test-account-sid',
+        'auth_token' => 'test-auth-token',
     ]))->toThrow(ProviderException::class);
 });

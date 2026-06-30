@@ -27,17 +27,11 @@ class WalmartProvider implements ProductProvider
         $timeout = config('affiliates.providers.walmart.timeout', 5);
 
         $response = Http::timeout($timeout)
-            ->withHeaders([
-                'WM_CONSUMER.ID' => $credentials['consumer_id'],
-                'WM_SEC.KEY_VERSION' => '1',
-                'WM_CONSUMER.INTIMESTAMP' => (string) (int) (microtime(true) * 1000),
-                'WM_SEC.AUTH_SIGNATURE' => $this->sign($credentials),
-                'Accept' => 'application/json',
-            ])
-            ->get("{$baseUrl}/v3/search", [
+            ->withBasicAuth($credentials['account_sid'], $credentials['auth_token'])
+            ->withHeaders(['Accept' => 'application/json'])
+            ->get("{$baseUrl}/v1/search", [
                 'query' => $query,
                 'format' => 'json',
-                'channelType' => $credentials['channel_type'] ?? 'Default',
             ]);
 
         if ($response->failed()) {
@@ -71,19 +65,5 @@ class WalmartProvider implements ProductProvider
                 provider: AffiliateProvider::Walmart,
             );
         }, $items)));
-    }
-
-    /** @param  array<string, string>  $credentials */
-    private function sign(array $credentials): string
-    {
-        // Walmart Open API HMAC-SHA256 signature
-        $timestamp = (string) (int) (microtime(true) * 1000);
-        $message = $credentials['consumer_id']."\n".$timestamp."\n1\n";
-
-        $privateKey = base64_decode($credentials['private_key']);
-        $signature = '';
-        @openssl_sign($message, $signature, $privateKey, OPENSSL_ALGO_SHA256);
-
-        return $signature !== '' ? base64_encode($signature) : '';
     }
 }

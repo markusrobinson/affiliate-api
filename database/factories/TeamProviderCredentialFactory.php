@@ -21,9 +21,8 @@ class TeamProviderCredentialFactory extends Factory
             'team_id' => Team::factory(),
             'provider' => AffiliateProvider::Walmart,
             'credentials' => [
-                'consumer_id' => fake()->uuid(),
-                'private_key' => base64_encode(fake()->sha256()),
-                'channel_type' => 'Default',
+                'account_sid' => fake()->uuid(),
+                'auth_token' => fake()->sha256(),
             ],
             'is_active' => true,
         ];
@@ -34,9 +33,8 @@ class TeamProviderCredentialFactory extends Factory
         return $this->state([
             'provider' => AffiliateProvider::Walmart,
             'credentials' => [
-                'consumer_id' => fake()->uuid(),
-                'private_key' => base64_encode(fake()->sha256()),
-                'channel_type' => 'Default',
+                'account_sid' => fake()->uuid(),
+                'auth_token' => fake()->sha256(),
             ],
         ]);
     }
