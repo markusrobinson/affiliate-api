@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 it('maps walmart search response to ProductResult array', function (): void {
     Http::fake([
-        'affiliate.api.walmart.com/*' => Http::response(
+        'developer.api.walmart.com/*' => Http::response(
             json_decode(file_get_contents(base_path('tests/Fixtures/Walmart/search-response.json')), true),
         ),
     ]);
@@ -19,6 +19,7 @@ it('maps walmart search response to ProductResult array', function (): void {
     $results = $provider->search('headphones', [
         'account_sid' => 'test-account-sid',
         'auth_token' => 'test-auth-token',
+        'publisher_id' => '123456789',
     ]);
 
     expect($results)->toHaveCount(2)
@@ -29,12 +30,13 @@ it('maps walmart search response to ProductResult array', function (): void {
 });
 
 it('throws ProviderException on non-2xx response', function (): void {
-    Http::fake(['affiliate.api.walmart.com/*' => Http::response([], 503)]);
+    Http::fake(['developer.api.walmart.com/*' => Http::response([], 503)]);
 
     $provider = new WalmartProvider;
 
     expect(fn () => $provider->search('headphones', [
         'account_sid' => 'test-account-sid',
         'auth_token' => 'test-auth-token',
+        'publisher_id' => '123456789',
     ]))->toThrow(ProviderException::class);
 });

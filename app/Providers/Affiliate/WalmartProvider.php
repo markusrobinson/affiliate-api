@@ -29,7 +29,8 @@ class WalmartProvider implements ProductProvider
         $response = Http::timeout($timeout)
             ->withBasicAuth($credentials['account_sid'], $credentials['auth_token'])
             ->withHeaders(['Accept' => 'application/json'])
-            ->get("{$baseUrl}/v1/search", [
+            ->get("{$baseUrl}/api-proxy/service/affil/product/v2/search", [
+                'publisherId' => $credentials['publisher_id'],
                 'query' => $query,
                 'format' => 'json',
             ]);

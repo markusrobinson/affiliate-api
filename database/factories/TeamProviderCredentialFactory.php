@@ -23,6 +23,7 @@ class TeamProviderCredentialFactory extends Factory
             'credentials' => [
                 'account_sid' => fake()->uuid(),
                 'auth_token' => fake()->sha256(),
+                'publisher_id' => fake()->numerify('#########'),
             ],
             'is_active' => true,
         ];
@@ -35,6 +36,7 @@ class TeamProviderCredentialFactory extends Factory
             'credentials' => [
                 'account_sid' => fake()->uuid(),
                 'auth_token' => fake()->sha256(),
+                'publisher_id' => fake()->numerify('#########'),
             ],
         ]);
     }

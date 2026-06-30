@@ -21,7 +21,7 @@ enum AffiliateProvider: string
     public function requiredCredentialKeys(): array
     {
         return match ($this) {
-            self::Walmart => ['account_sid', 'auth_token'],
+            self::Walmart => ['account_sid', 'auth_token', 'publisher_id'],
             self::Amazon => ['access_key', 'secret_key', 'partner_tag', 'marketplace'],
         };
     }

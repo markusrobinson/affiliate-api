@@ -5,7 +5,7 @@ return [
 
     'providers' => [
         'walmart' => [
-            'base_url' => env('WALMART_API_BASE_URL', 'https://affiliate.api.walmart.com'),
+            'base_url' => env('WALMART_API_BASE_URL', 'https://developer.api.walmart.com'),
             'timeout' => (int) env('WALMART_API_TIMEOUT', 5),
         ],
         'amazon' => [

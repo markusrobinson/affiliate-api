@@ -1,9 +1,7 @@
 <?php
 
-use App\Enums\AffiliateProvider;
 use App\Models\Team;
 use App\Models\TeamProviderCredential;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 it('returns 401 when unauthenticated', function (): void {
@@ -39,7 +37,7 @@ it('returns 422 when query is too short', function (): void {
 
 it('returns unified normalized results from configured providers', function (): void {
     Http::fake([
-        'affiliate.api.walmart.com/*' => Http::response(
+        'developer.api.walmart.com/*' => Http::response(
             json_decode(file_get_contents(base_path('tests/Fixtures/Walmart/search-response.json')), true),
         ),
         'webservices.amazon.com/*' => Http::response(
@@ -70,7 +68,7 @@ it('returns unified normalized results from configured providers', function (): 
 
 it('returns partial results when one provider fails', function (): void {
     Http::fake([
-        'affiliate.api.walmart.com/*' => Http::response(
+        'developer.api.walmart.com/*' => Http::response(
             json_decode(file_get_contents(base_path('tests/Fixtures/Walmart/search-response.json')), true),
         ),
         'webservices.amazon.com/*' => Http::response([], 500),
@@ -92,7 +90,7 @@ it('returns partial results when one provider fails', function (): void {
 
 it('serves results from cache on second request', function (): void {
     Http::fake([
-        'affiliate.api.walmart.com/*' => Http::response(
+        'developer.api.walmart.com/*' => Http::response(
             json_decode(file_get_contents(base_path('tests/Fixtures/Walmart/search-response.json')), true),
         ),
     ]);
