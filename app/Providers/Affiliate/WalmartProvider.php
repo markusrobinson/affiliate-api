@@ -58,14 +58,18 @@ class WalmartProvider implements ProductProvider
      * Header values are sorted by key name (ascending) and joined with "\n".
      * Sorted order: WM_CONSUMER.ID, WM_CONSUMER.INTIMESTAMP, WM_SEC.KEY_VERSION
      */
+    /**
+     * Walmart provides the private key as a bare base64-encoded DER string.
+     * Wrap it in PEM headers so PHP's openssl functions can use it.
+     */
     private function sign(string $consumerId, string $privateKeyBase64, string $timestamp): string
     {
         $message = $consumerId."\n".$timestamp."\n1\n";
-        $privateKey = base64_decode($privateKeyBase64);
+        $pem = "-----BEGIN PRIVATE KEY-----\n".chunk_split($privateKeyBase64, 64, "\n")."-----END PRIVATE KEY-----\n";
         $signature = '';
 
         try {
-            $signed = openssl_sign($message, $signature, $privateKey, OPENSSL_ALGO_SHA256);
+            $signed = openssl_sign($message, $signature, $pem, OPENSSL_ALGO_SHA256);
         } catch (\Throwable) {
             $signed = false;
         }

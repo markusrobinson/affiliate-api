@@ -13,9 +13,12 @@ function walmartTestCredentials(): array
     $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA]);
     openssl_pkey_export($key, $pem);
 
+    // Strip PEM headers/footers and whitespace — matches the bare base64 DER Walmart provides
+    $base64Der = preg_replace('/-----.*?-----|\s/', '', $pem);
+
     return [
         'account_sid' => 'test-account-sid',
-        'auth_token' => base64_encode($pem),
+        'auth_token' => $base64Der,
         'publisher_id' => '123456789',
     ];
 }

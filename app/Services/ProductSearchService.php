@@ -76,7 +76,7 @@ class ProductSearchService
             'provider_errors' => $providerErrors,
         ];
 
-        // Cache::put($cacheKey, $payload, $ttl);
+        Cache::put($cacheKey, $payload, $ttl);
 
         return new ProductSearchResult(
             products: $allProducts,
